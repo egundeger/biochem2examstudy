@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biyokimya II — Tam Çalışma Seti</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf8f5;
+  --text: #1a1a1a;
+  --text-soft: #555;
+  --accent-1: #2d5a27;
+  --accent-1-light: #e8f0e6;
+  --accent-2: #7b2d8b;
+  --accent-2-light: #f3e8f6;
+  --accent-3: #b8560f;
+  --accent-3-light: #fdf0e6;
+  --accent-4: #1a5276;
+  --accent-4-light: #e3eff6;
+  --border: #e0dcd6;
+  --card-bg: #fff;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+  --radius: 12px;
+  --kolay: #2d7d46;
+  --orta: #c97b1a;
+  --zor: #c0392b;
+  --analiz: #6c3483;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #1a2e1a 0%, #2d5a27 40%, #1a5276 100%);
+  color: #fff;
+  padding: 60px 40px 50px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.04) 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, rgba(255,255,255,0.03) 0%, transparent 50%);
+  animation: drift 20s ease-in-out infinite;
+}
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-3%, 2%) rotate(1deg); }
+}
+.hero h1 {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  position: relative;
+  margin-bottom: 8px;
+}
+.hero .subtitle {
+  font-size: 1rem;
+  opacity: 0.8;
+  position: relative;
+  margin-bottom: 20px;
+}
+.hero .badges {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  position: relative;
+}
+.hero .badge {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  backdrop-filter: blur(4px);
+}
+
+/* NAVIGATION */
+.nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250,248,245,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+}
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-btn {
+  padding: 14px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-soft);
+  border: none;
+  background: none;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2.5px solid transparent;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.nav-btn:hover { color: var(--text); }
+.nav-btn.active {
+  color: var(--accent-1);
+  border-bottom-color: var(--accent-1);
+}
+
+/* MAIN */
+.main { max-width: 1100px; margin: 0 auto; padding: 30px 20px 80px; }
+
+.section { display: none; }
+.section.active { display: block; animation: fadeUp 0.3s ease; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* SECTION HEADER */
+.section-header {
+  padding: 24px 28px;
+  border-radius: var(--radius);
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.section-header h2 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.section-header p {
+  font-size: 0.92rem;
+  opacity: 0.8;
+}
+.sh-green { background: var(--accent-1); color: #fff; }
+.sh-purple { background: var(--accent-2); color: #fff; }
+.sh-orange { background: var(--accent-3); color: #fff; }
+.sh-blue { background: var(--accent-4); color: #fff; }
+
+/* SUMMARY CARDS */
+.summary-grid {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+.summary-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 26px;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s;
+}
+.summary-card:hover { box-shadow: var(--shadow-lg); }
+.summary-card h3 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.summary-card h3 .icon {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.summary-card ul { padding-left: 20px; }
+.summary-card li { margin-bottom: 6px; font-size: 0.92rem; color: var(--text); }
+.summary-card li strong { color: var(--text); }
+
+.key-point {
+  background: #fffce8;
+  border-left: 3px solid #d4a017;
+  padding: 10px 16px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.88rem;
+}
+.exam-alert {
+  background: #fde8e8;
+  border-left: 3px solid #c0392b;
+  padding: 10px 16px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+.formula-box {
+  background: #f0f4f8;
+  border: 1px solid #d0d8e0;
+  border-radius: 8px;
+  padding: 12px 18px;
+  margin: 10px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.8;
+  overflow-x: auto;
+}
+.clinical-box {
+  background: var(--accent-1-light);
+  border-left: 3px solid var(--accent-1);
+  padding: 10px 16px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.88rem;
+}
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.88rem;
+}
+.compare-table th {
+  background: #f0f0ec;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid var(--border);
+}
+.compare-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.compare-table tr:hover td { background: #fafaf7; }
+
+/* QUESTIONS */
+.questions-section { margin-top: 30px; }
+.questions-section h3 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.q-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.q-header {
+  padding: 16px 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  user-select: none;
+}
+.q-header:hover { background: #faf8f5; }
+.q-number {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.q-number.kolay { background: var(--kolay); }
+.q-number.orta { background: var(--orta); }
+.q-number.zor { background: var(--zor); }
+.q-number.analiz { background: var(--analiz); }
+.q-content { flex: 1; }
+.q-text { font-size: 0.92rem; font-weight: 500; line-height: 1.6; }
+.q-meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+.q-tag {
+  font-size: 0.72rem;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.q-tag.kolay { background: #e8f5e9; color: var(--kolay); }
+.q-tag.orta { background: #fff3e0; color: var(--orta); }
+.q-tag.zor { background: #fbe9e7; color: var(--zor); }
+.q-tag.analiz { background: #f3e5f5; color: var(--analiz); }
+.q-tag.bloom { background: #e8eaf6; color: #283593; }
+.q-toggle {
+  font-size: 1.2rem;
+  color: var(--text-soft);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.q-card.open .q-toggle { transform: rotate(180deg); }
+.q-answer {
+  display: none;
+  padding: 0 22px 20px 64px;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--text);
+  border-top: 1px solid var(--border);
+  margin-top: 0;
+  padding-top: 16px;
+}
+.q-card.open .q-answer { display: block; animation: fadeUp 0.25s ease; }
+.q-answer strong { color: var(--accent-1); }
+.q-answer .ans-formula {
+  background: #f0f4f8;
+  border: 1px solid #d0d8e0;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  margin: 8px 0;
+  display: block;
+  overflow-x: auto;
+}
+
+/* PROGRESS TRACKER */
+.progress-bar {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 24px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow);
+}
+.progress-label { font-size: 0.85rem; font-weight: 600; white-space: nowrap; }
+.progress-track {
+  flex: 1;
+  height: 8px;
+  background: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-4));
+}
+.progress-count { font-size: 0.85rem; color: var(--text-soft); font-weight: 500; white-space: nowrap; }
+
+/* DIFFICULTY LEGEND */
+.legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  font-size: 0.82rem;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+
+/* PRINT */
+@media print {
+  .nav-bar, .hero { break-after: avoid; }
+  .q-answer { display: block !important; }
+  .section { display: block !important; page-break-before: always; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero { padding: 40px 20px 35px; }
+  .summary-card { padding: 18px 20px; }
+  .q-answer { padding-left: 22px; }
+  .progress-bar { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Biyokimya II — Tam Çalışma Seti</h1>
+  <p class="subtitle">Dr. Ersin Gündeğer · Lehninger Principles of Biochemistry</p>
+  <div class="badges">
+    <span class="badge">📗 Konu Özetleri</span>
+    <span class="badge">📝 50+ Soru</span>
+    <span class="badge">📈 Artan Zorluk</span>
+    <span class="badge">🏥 Klinik Örnekler</span>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showSection('ksenobiyotik')">🧪 Ksenobiyotik</button>
+    <button class="nav-btn" onclick="showSection('protein')">🧬 Protein Yapısı</button>
+    <button class="nav-btn" onclick="showSection('enzim')">⚗️ Enzim İnhibisyonu</button>
+    <button class="nav-btn" onclick="showSection('karma')">🎯 Karma Sorular</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <span class="progress-label">📊 İlerleme:</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <span class="progress-count" id="progressCount">0 / 0 soru tamamlandı</span>
+</div>
+
+<!-- ==================== BÖLÜM 1: KSENOBİYOTİK ==================== -->
+<div class="section active" id="sec-ksenobiyotik">
+
+<div class="section-header sh-green">
+  <h2>🧪 Ksenobiyotik Metabolizması (Detoksifikasyon)</h2>
+  <p>Faz I & Faz II reaksiyonları · Amino asit konjugasyonu · Glutatyon · Klinik uygulamalar</p>
+</div>
+
+<div class="summary-grid">
+
+<!-- ÖZET 1: Temel Kavramlar -->
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-1-light);color:var(--accent-1);">1</span> Temel Kavramlar</h3>
+  <p><strong>Ksenobiyotik (Xenobiotic):</strong> Vücuda dışarıdan giren, normalde organizmada bulunmayan yabancı kimyasal maddelerdir (ilaçlar, gıda katkı maddeleri, çevresel toksinler).</p>
+  <p style="margin-top:8px;"><strong>Biyotransformasyon:</strong> Ksenobiyotiklerin vücuttan atılabilmesi için daha polar (suda çözünür) hale dönüştürülme sürecidir. Temel olarak <strong>karaciğerde</strong> gerçekleşir.</p>
+  <div class="key-point">
+    <strong>🔑 Anahtar Prensip:</strong> Lipofilik madde → Biyotransformasyon → Hidrofilik ürün → İdrar/safra ile atılım
+  </div>
+  <div class="exam-alert">
+    ⚠️ SINAV: "Biyotransformasyon nedir?" tanım sorusu sınavda 2 kez soruldu!
+  </div>
+</div>
+
+<!-- ÖZET 2: Faz I -->
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-1-light);color:var(--accent-1);">2</span> Faz I — Fonksiyonelleştirme Reaksiyonları</h3>
+  <p>Moleküle fonksiyonel grup eklenmesi veya açığa çıkarılması. Madde biraz daha polar hale gelir.</p>
+  <ul>
+    <li><strong>Oksidasyon</strong> (en yaygın): Sitokrom P450 (CYP450) monooksijenaz sistemi</li>
+    <li><strong>Redüksiyon:</strong> Nitro ve azo gruplarının indirgenmesi</li>
+    <li><strong>Hidroliz:</strong> Esteraz ve amidazlar tarafından</li>
+  </ul>
+  <div class="formula-box">
+    Sitokrom P450 Genel Reaksiyonu:<br>
+    RH + O₂ + NADPH + H⁺ → ROH + H₂O + NADP⁺<br><br>
+    Fenol oluşumu (Faz I): Benzen → OH eklenmesi → Fenol
+  </div>
+  <div class="key-point">
+    <strong>🔑 Hatırla:</strong> Faz I genellikle maddeyi biraz aktive eder, bazen toksik ara ürünler oluşabilir (ör: parasetamol → NAPQI)
+  </div>
+</div>
+
+<!-- ÖZET 3: Faz II -->
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-1-light);color:var(--accent-1);">3</span> Faz II — Konjugasyon Reaksiyonları</h3>
+  <p>Faz I ürünlerine veya doğrudan polar grup eklenerek suda çözünürlük artırılır. Genellikle <strong>inaktivasyon</strong> sağlanır.</p>
+
+  <table class="compare-table">
+    <tr><th>Konjugasyon Tipi</th><th>Aktif Donör</th><th>Enzim</th><th>Örnek</th></tr>
+    <tr><td><strong>Glukuronidasyonu</strong></td><td>UDP-glukuronik asit</td><td>UDP-glukuroniltransferaz</td><td>Bilirubin, morfin</td></tr>
+    <tr><td><strong>Sülfatlama</strong></td><td>PAPS (aktif sülfat)</td><td>Sülfotransferaz</td><td>Fenol → fenilsülfürik asit</td></tr>
+    <tr><td><strong>Asetilasyon</strong></td><td>Asetil-CoA</td><td>N-asetiltransferaz</td><td>İzoniazid, sülfonamidler</td></tr>
+    <tr><td><strong>Metilasyon</strong></td><td>SAM (S-adenozilmetiyonin)</td><td>Metiltransferaz</td><td>Nikotinamid → N-metilnikotinamid</td></tr>
+    <tr><td><strong>Glutatyon</strong></td><td>GSH (glutatyon)</td><td>Glutatyon S-transferaz</td><td>Brombenzen → merkaptürik asit</td></tr>
+    <tr><td><strong>Amino asit</strong></td><td>Glisin, Glutamin</td><td>Açil-CoA ligaz + Transferaz</td><td>Benzoik asit → hipürik asit</td></tr>
+  </table>
+
+  <div class="exam-alert">
+    ⚠️ SINAV: "Amino asit içeren ksenobiyotiklerin zehirsizleştirme reaksiyonlarını yazın" — Glisin ve Glutamin konjugasyonunu reaksiyonlarıyla birlikte bilmelisin!
+  </div>
+</div>
+
+<!-- ÖZET 4: Amino Asit Konjugasyonu -->
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-1-light);color:var(--accent-1);">4</span> Amino Asit Konjugasyonu (Detay)</h3>
+  
+  <p><strong>a) Glisin Konjugasyonu:</strong></p>
+  <div class="formula-box">
+    Adım 1: Benzoik asit + HSCoA + ATP → BenzoilCoA + AMP + PPi<br>
+    Adım 2: BenzoilCoA + Glisin → Hipürik asit + HSCoA<br><br>
+    Salisilil asit + HSCoA + ATP → SalisilCoA + AMP + PPi<br>
+    SalisilCoA + Glisin → Salisiliglisin + HSCoA<br><br>
+    ⚡ Birleşme karboksil grubundan olur!
+  </div>
+
+  <p><strong>b) Glutamin Konjugasyonu:</strong></p>
+  <p>İnsan organizmasında zehirsizleştirmede en önemli ve en fazla bulunan amino asitlerdendir. Fenil alaninin yıkılması sonucu fenilasetik asit oluşur.</p>
+  <div class="formula-box">
+    Fenilasetik asit → FenilasetilCoA → Fenilasetilglisin (glisin ile)<br>
+    veya<br>
+    Fenilasetik asit → FenilasetilCoA → Fenilasetilglutamin (glutamin ile)
+  </div>
+</div>
+
+<!-- ÖZET 5: Sülfat Konjugasyonu -->
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-1-light);color:var(--accent-1);">5</span> Sülfat Asidi ile Zehirsizleştirme (Faz II)</h3>
+  <p>Yapısında <strong>–OH grubu</strong> olan bileşikler sülfotransferazlar ile zehirsizleştirilir. Katekolamin, fenol, serotonin ve steroid hormonları bu yolla metabolize olur.</p>
+  <div class="formula-box">
+    SO₄²⁻ + ATP → PAPS (3'-fosfo adenozin-5'-fosfosülfat = Aktif Sülfat)<br><br>
+    Fenol + Aktif Sülfat —[sülfotransferaz]→ Fenilsülfürik asit<br>
+    İndoksil + Aktif Sülfat —[sülfotransferaz]→ İndoksisülfürik asit
+  </div>
+  <div class="exam-alert">
+    ⚠️ SINAV: "Aktif sülfat" yapısını (PAPS) çizebilmelisin!
+  </div>
+</div>
+
+<!-- ÖZET 6: Glutatyon ve Merkaptürik Asit -->
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-1-light);color:var(--accent-1);">6</span> Glutatyon (GSH) ve Sisteinle Zehirsizleştirme</h3>
+  <p><strong>Glutatyon (GSH):</strong> γ-glutamil-sisteinil-glisin (tripeptit). Zehirsizleştirmede kullanılan amino asitlerin en önemlisi, verici grup olan tripeptittir.</p>
+  
+  <div class="formula-box">
+    GSH + KSeOH —[Glutatyon S-transferaz]→ GS-KSeOH<br>
+    ↓ (γ-glutamil transpeptidaz, sisteinil glisinaz, asetilasyon)<br>
+    Son ürün: Merkaptürik asit → İdrarla atılır
+  </div>
+
+  <p style="margin-top:10px;"><strong>Brombenzen örneği:</strong> Benzen, polisiklik hidrokarbonlar, arilhalojenürler sistein ile merkaptürik asite dönüşerek zehirsizleştirilir.</p>
+  
+  <div class="formula-box">
+    Brombenzen + Sistein + AsetilCoA —[N-asetiltransferaz]→ Bromfenil merkaptürik asit + HSCoA
+  </div>
+
+  <div class="clinical-box">
+    🏥 <strong>Klinik:</strong> Parasetamol aşırı dozunda GSH depoları tükenir → NAPQI birikimi → Karaciğer nekrozu. Tedavi: N-asetilsistein (GSH öncüsü)
+  </div>
+</div>
+
+<!-- ÖZET 7: Fenollü Ksenobiyotikler -->
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-1-light);color:var(--accent-1);">7</span> Fenollü Ksenobiyotiklerin Metabolizması</h3>
+  <p><strong>Faz I:</strong> Hidroksilasyon ile fenol grubu oluşur (CYP450 ile)</p>
+  <p><strong>Faz II:</strong> Oluşan fenol → Glukuronidasyonu veya Sülfatlaşma ile konjuge edilir</p>
+  <div class="formula-box">
+    Ksenobiyotik —[CYP450, Faz I]→ Fenollü ara ürün<br>
+    Fenollü ara ürün + UDP-Glukuronik asit —[Faz II]→ Glukuronid konjugatı → Atılım<br>
+    veya<br>
+    Fenollü ara ürün + PAPS —[Faz II]→ Sülfat konjugatı → Atılım
+  </div>
+  <div class="exam-alert">
+    ⚠️ SINAV: Bütünlemede "fenollü ksenobiyotikleri, Faz I ve Faz II'yi açıklayın" soruldu!
+  </div>
+</div>
+
+</div><!-- summary-grid -->
+
+<!-- KSENOBİYOTİK SORULARI -->
+<div class="questions-section">
+  <h3>📝 Ksenobiyotik — Sorular</h3>
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot" style="background:var(--kolay)"></span> Kolay (Bilgi)</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--orta)"></span> Orta (Kavrama)</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--zor)"></span> Zor (Uygulama)</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--analiz)"></span> Analiz</span>
+  </div>
+
+  <!-- S1 -->
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number kolay">1</span>
+      <div class="q-content">
+        <div class="q-text">Biyotransformasyon nedir? Temel amacını açıklayınız.</div>
+        <div class="q-meta"><span class="q-tag kolay">Kolay</span><span class="q-tag bloom">Bilgi</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Biyotransformasyon,</strong> vücuda giren yabancı maddelerin (ksenobiyotikler) enzimatik reaksiyonlarla kimyasal yapılarının değiştirilmesi sürecidir. Temel amaç, lipofilik (yağda çözünen) maddeleri <strong>hidrofilik</strong> (suda çözünen) hale getirerek böbrekler veya safra yoluyla vücuttan atılımını sağlamaktır. Başlıca karaciğerde (hepatositlerde) gerçekleşir.
+    </div>
+  </div>
+
+  <!-- S2 -->
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number kolay">2</span>
+      <div class="q-content">
+        <div class="q-text">Faz I ve Faz II reaksiyonları arasındaki temel farkları belirtiniz.</div>
+        <div class="q-meta"><span class="q-tag kolay">Kolay</span><span class="q-tag bloom">Kavrama</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Faz I (Fonksiyonelleştirme):</strong> Moleküle –OH, –NH₂, –SH gibi fonksiyonel gruplar eklenir veya açığa çıkarılır. Oksidasyon, redüksiyon, hidroliz reaksiyonları içerir. Ana enzim sistemi: Sitokrom P450 (CYP450). Maddeyi biraz daha polar yapar ama bazen toksik ara ürünler oluşabilir.<br><br>
+      <strong>Faz II (Konjugasyon):</strong> Faz I ürünlerine veya doğrudan substrata endojen polar moleküller (glukuronik asit, sülfat, GSH, amino asit vb.) eklenir. Genellikle inaktivasyon sağlar ve suda çözünürlüğü büyük ölçüde artırır.
+    </div>
+  </div>
+
+  <!-- S3 -->
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number kolay">3</span>
+      <div class="q-content">
+        <div class="q-text">PAPS (aktif sülfat) nedir? Yapısını ve işlevini yazınız.</div>
+        <div class="q-meta"><span class="q-tag kolay">Kolay</span><span class="q-tag bloom">Bilgi</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>PAPS</strong> = 3'-Fosfo Adenozin-5'-Fosfosülfat. Sülfat konjugasyonunda aktif sülfat donörüdür.<br>
+      <span class="ans-formula">SO₄²⁻ + ATP → PAPS (Aktif Sülfat)</span>
+      Sülfotransferaz enzimi ile –OH grubu taşıyan bileşiklere (fenol, katekolamin, serotonin, steroid hormonları) sülfat grubunu aktarır. Ör: Fenol + PAPS → Fenilsülfürik asit
+    </div>
+  </div>
+
+  <!-- S4 -->
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number orta">4</span>
+      <div class="q-content">
+        <div class="q-text">Benzoik asidin glisin ile konjugasyonunu adım adım yazınız. Son ürün nedir?</div>
+        <div class="q-meta"><span class="q-tag orta">Orta</span><span class="q-tag bloom">Uygulama</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="ans-formula">
+        Adım 1 (Aktivasyon): Benzoik asit + HSCoA + ATP → Benzoil-CoA + AMP + PPi<br>
+        Adım 2 (Konjugasyon): Benzoil-CoA + Glisin → Hipürik asit + HSCoA
+      </span>
+      Son ürün: <strong>Hipürik asit</strong> (benzoilglisin). Birleşme <strong>karboksil grubundan</strong> olur. Hipürik asit idrarla atılır.
+    </div>
+  </div>
+
+  <!-- S5 -->
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number orta">5</span>
+      <div class="q-content">
+        <div class="q-text">Glutatyon ile zehirsizleştirme mekanizmasını açıklayınız. Merkaptürik asit nasıl oluşur?</div>
+        <div class="q-meta"><span class="q-tag orta">Orta</span><span class="q-tag bloom">Kavrama</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      GSH (γ-glutamil-sisteinil-glisin), <strong>glutatyon S-transferaz</strong> enzimi ile ksenobiyotik maddeye bağlanır:<br>
+      <span class="ans-formula">
+        GSH + KSeOH → GS-KSeOH (glutatyon-ksenobiyotik konjugatı)<br>
+        ↓ γ-glutamil transpeptidaz (glutamat ayrılır → sisteinil-glisin-ksenobiyotik)<br>
+        ↓ Sisteinil glisinaz (glisin ayrılır → sistein-ksenobiyotik)<br>
+        ↓ N-asetiltransferaz + Asetil-CoA (asetilasyon)<br>
+        → Merkaptürik asit (son ürün, idrarla atılır)
+      </span>
+    </div>
+  </div>
+
+  <!-- S6 -->
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number orta">6</span>
+      <div class="q-content">
+        <div class="q-text">Fenollü ksenobiyotiklerin Faz I ve Faz II'deki metabolizmasını açıklayınız.</div>
+        <div class="q-meta"><span class="q-tag orta">Orta</span><span class="q-tag bloom">Uygulama</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Faz I:</strong> CYP450 sistemi ile ksenobiyotiğe –OH grubu eklenir → fenol yapılı ara ürün oluşur (hidroksilasyon).<br><br>
+      <strong>Faz II:</strong> Oluşan fenol iki yoldan konjuge edilebilir:<br>
+      1) <strong>Glukuronidasyonu:</strong> Fenol + UDP-glukuronik asit → Glukuronid konjugatı<br>
+      2) <strong>Sülfatlaşma:</strong> Fenol + PAPS (aktif sülfat) → Sülfat konjugatı<br><br>
+      Her iki yolda da son ürün suda çözünür hale gelir ve idrar/safra ile atılır.
+    </div>
+  </div>
+
+  <!-- S7 -->
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number zor">7</span>
+      <div class="q-content">
+        <div class="q-text">Parasetamol zehirlenmesinde GSH'ın rolünü açıklayınız. N-asetilsistein neden antidot olarak kullanılır?</div>
+        <div class="q-meta"><span class="q-tag zor">Zor</span><span class="q-tag bloom">Analiz</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      Normal dozda parasetamolün büyük kısmı Faz II'de (glukuronidasyonu/sülfatlaşma) doğrudan konjuge edilir. Küçük bir kısmı CYP450 (Faz I) ile toksik metabolit <strong>NAPQI</strong>'ye dönüşür. Normal koşullarda NAPQI, <strong>GSH ile konjuge</strong> edilerek merkaptürik asit olarak atılır.<br><br>
+      <strong>Aşırı dozda:</strong> Faz II yolları doyar → CYP450 aktivitesi artar → Fazla NAPQI üretilir → GSH depoları tükenir → NAPQI hepatosit proteinlerine kovalent bağlanır → <strong>Karaciğer nekrozu</strong><br><br>
+      <strong>N-asetilsistein (NAC)</strong> tedavisi: NAC, sisteinin öncüsüdür → GSH sentezini artırır → Tükenen GSH depolarını yeniler → NAPQI'nin detoksifikasyonunu sağlar.
+    </div>
+  </div>
+
+  <!-- S8 -->
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number analiz">8</span>
+      <div class="q-content">
+        <div class="q-text">Bir ilaç molekülü hem Faz I hem Faz II'den geçiyor. Faz I'de CYP2D6 genetik polimorfizmi olan bir "yavaş metabolize edici" hastada bu ilacın metabolizması nasıl etkilenir? Klinik sonuçlarını tartışınız.</div>
+        <div class="q-meta"><span class="q-tag analiz">Analiz</span><span class="q-tag bloom">Değerlendirme</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Yavaş metabolize edicilerde:</strong><br>
+      1) Faz I (CYP2D6) aktivitesi düşüktür → İlacın aktif formunun plazmadaki yarı ömrü uzar → Toksisite riski artar<br>
+      2) Faz I ürünü yeterince oluşmadığı için Faz II konjugasyonu da azalır → Atılım yavaşlar<br>
+      3) İlaç bir "prodrug" ise: Aktif metabolit yeterince oluşmaz → Terapötik etki azalır (ör: kodein → morfin dönüşümünde CYP2D6 gerekli)<br><br>
+      <strong>Klinik sonuç:</strong> Farmakogenetik testler önemli hale gelir. Doz ayarlaması yapılmalı, alternatif ilaç düşünülmeli. Bu kavram <strong>kişiselleştirilmiş tıp (personalized medicine)</strong> yaklaşımının temelini oluşturur.
+    </div>
+  </div>
+
+</div><!-- questions-section -->
+</div><!-- sec-ksenobiyotik -->
+
+
+<!-- ==================== BÖLÜM 2: PROTEİN YAPISI ==================== -->
+<div class="section" id="sec-protein">
+
+<div class="section-header sh-purple">
+  <h2>🧬 Protein Yapısı</h2>
+  <p>Peptit bağı · Primer → Kuaterner yapı · Proteazlar · Analiz yöntemleri · Klinik bağlantılar</p>
+</div>
+
+<div class="summary-grid">
+
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-2-light);color:var(--accent-2);">1</span> Peptit Bağı ve Temel Kavramlar</h3>
+  <p><strong>Peptit bağı:</strong> Bir amino asidin α-karboksil grubu ile diğerinin α-amino grubu arasında su çıkışıyla oluşan <strong>kovalent amid bağıdır.</strong> Kısmi çift bağ karakteri taşır (rezonans) → düzlemsel ve rijittir.</p>
+  <ul>
+    <li><strong>N-terminal:</strong> Serbest –NH₃⁺ grubu (zincirin başı)</li>
+    <li><strong>C-terminal:</strong> Serbest –COO⁻ grubu (zincirin sonu)</li>
+    <li>2 amino asit → dipeptit, 3 → tripeptit, 2-10 → oligopeptit, >10 → polipeptit</li>
+    <li>Peptit bağına karboksil grubu ile katılan amino asidin adının sonuna <strong>"-il"</strong> eki getirilir</li>
+  </ul>
+  <div class="key-point">
+    <strong>🔑 Örnek:</strong> Alanil-serin = Alanin (karboksil ile katılır, "-il" alır) + Serin (amino ile katılır, ismini korur)
+  </div>
+</div>
+
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-2-light);color:var(--accent-2);">2</span> Protein Yapı Düzeyleri</h3>
+  <table class="compare-table">
+    <tr><th>Yapı Düzeyi</th><th>Tanım</th><th>Stabilize Eden Bağlar</th><th>Örnek</th></tr>
+    <tr><td><strong>Primer</strong></td><td>Amino asit dizisi (lineer sıra)</td><td>Peptit bağları (kovalent)</td><td>İnsülin A ve B zincirleri</td></tr>
+    <tr><td><strong>Sekonder</strong></td><td>Lokal katlanma: α-heliks, β-tabaka, β-dönüş</td><td>Hidrojen bağları (C=O···H-N)</td><td>Keratin (α-heliks), fibroin (β-tabaka)</td></tr>
+    <tr><td><strong>Tersiyer</strong></td><td>3D katlama (tek zincir)</td><td>Hidrofobik, iyonik, H-bağı, S-S (disülfit)</td><td>Miyoglobin</td></tr>
+    <tr><td><strong>Kuaterner</strong></td><td>Birden fazla alt birim düzenlemesi</td><td>Tersiyer ile aynı (kovalent olmayan)</td><td>Hemoglobin (α₂β₂)</td></tr>
+  </table>
+  <div class="exam-alert">
+    ⚠️ SINAV: Her yapı düzeyinin stabilize eden bağlarını ve örneklerini bilin!
+  </div>
+</div>
+
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-2-light);color:var(--accent-2);">3</span> Sekonder Yapı Detayları</h3>
+  <p><strong>α-Heliks:</strong> Sağ elli sarmal. Her 3.6 amino asitte bir tam dönüş. H-bağları zincir boyunca (i → i+4 arası). Prolin heliks kırıcıdır (imino asit, dönmeyi engeller).</p>
+  <p style="margin-top:8px;"><strong>β-Tabaka (β-Pleated Sheet):</strong> Zincirler yan yana uzanır. Paralel veya antiparalel olabilir. H-bağları zincirler arasındadır.</p>
+  <p style="margin-top:8px;"><strong>β-Dönüş:</strong> Polipeptit zincirinin yön değiştirdiği bölge. Genellikle glisin ve prolin içerir.</p>
+</div>
+
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-2-light);color:var(--accent-2);">4</span> Proteolitik Enzimler ve Peptit Analizi</h3>
+  <p>Peptit zincirinin amino asit sırasını belirlemek için spesifik proteazlar kullanılır:</p>
+  <table class="compare-table">
+    <tr><th>Enzim/Yöntem</th><th>Kesim Yeri</th></tr>
+    <tr><td><strong>Tripsin</strong></td><td>Lizin (K) ve Arginin (R)'in karboksil tarafından keser</td></tr>
+    <tr><td><strong>Kimotripsin</strong></td><td>Phe, Trp, Tyr (aromatik)'in karboksil tarafından</td></tr>
+    <tr><td><strong>Pepsin</strong></td><td>Phe, Trp, Tyr, Leu'nun N-terminal tarafından</td></tr>
+    <tr><td><strong>Elastaz</strong></td><td>Ala, Gly, Ser, Val'ın karboksil tarafından</td></tr>
+    <tr><td><strong>Clostripain</strong></td><td>Arginin'in C-terminal tarafından</td></tr>
+    <tr><td><strong>CNBr</strong></td><td>Metiyonin (Met)'in karboksil tarafından (kimyasal)</td></tr>
+    <tr><td><strong>Edman bozunması</strong></td><td>N-terminal amino asidi tek tek tayin eder</td></tr>
+  </table>
+  <div class="key-point">
+    <strong>🔑 C-terminal tayini:</strong> 1) Hidrazinoliz, 2) LiBH₄ ile indirgeme, 3) Karboksipeptidaz A enzimi, 4) Karboksipeptidaz B enzimi
+  </div>
+  <div class="key-point">
+    <strong>🔑 İzoelektrik nokta:</strong> Proteinlerin net yükünün sıfır olduğu pH değeri → Elektroforez ile tayin edilir
+  </div>
+</div>
+
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-2-light);color:var(--accent-2);">5</span> Denatürasyon ve Klinik Bağlantılar</h3>
+  <p><strong>Denatürasyon:</strong> Proteinin 3D yapısının (sekonder, tersiyer, kuaterner) bozulmasıdır. Primer yapı korunur. Isı, pH değişimi, ağır metaller, deterjanlar, üre neden olabilir.</p>
+  <div class="clinical-box">
+    🏥 <strong>Orak Hücreli Anemi:</strong> Hemoglobin β-zincirinde 6. pozisyonda Glu → Val değişimi (primer yapı mutasyonu) → Tersiyer ve kuaterner yapı değişir → HbS polimerize olur → Eritrositler orak şekli alır
+  </div>
+  <div class="clinical-box">
+    🏥 <strong>Prion Hastalıkları:</strong> Normal PrPᶜ (α-heliks ağırlıklı) → Anormal PrPˢᶜ (β-tabaka ağırlıklı). Sekonder yapı değişimi → İnfektif form. CJD, Kuru, BSE.
+  </div>
+</div>
+
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-2-light);color:var(--accent-2);">6</span> Glutatyon — Özel Tripeptit</h3>
+  <p><strong>γ-Glutamil-sisteinil-glisin (GSH):</strong> Diğer peptitlerden farklı olarak peptit bağı γ-karbonundan (γ-C) oluşur.</p>
+  <p>GSH: indirgenmiş hal &nbsp;|&nbsp; GSSG: yükseltgenmiş hal (disülfit bağıyla iki GSH birleşir)</p>
+  
+  <div class="formula-box">
+    Sentez:<br>
+    L-glutamik asit + L-sistein + ATP —[γ-glutamil sistein sentetaz]→ γ-glutamilsistein + ADP + Pi<br>
+    γ-glutamilsistein + L-glisin + ATP —[glutatyon sentetaz]→ GSH + ADP + Pi
+  </div>
+
+  <p style="margin-top:10px;"><strong>Glutatyonun 7 Görevi:</strong></p>
+  <ul>
+    <li><strong>1.</strong> Oksidatif ürünlerin indirmesi — Ana endojen redoks koruyucu</li>
+    <li><strong>2.</strong> Peroksitlere karşı koruma (glutatyon peroksidaz, selenyum içerir)</li>
+    <li><strong>3.</strong> Transhidrojenasyon reaksiyonlarına katılır</li>
+    <li><strong>4.</strong> Amino asitlerin hücreye girişi — γ-glutamil siklusu (prolin hariç tüm aa)</li>
+    <li><strong>5.</strong> DNA hasarına karşı koruyucu (radyasyon, oksidanlar)</li>
+    <li><strong>6.</strong> Hemoglobindeki demirin Fe²⁺ (ferro) halde tutulması</li>
+    <li><strong>7.</strong> Yabancı maddelerin zehirsizleştirilmesi (Faz II)</li>
+  </ul>
+  
+  <div class="formula-box">
+    Peroksidaz: 2GSH + H₂O₂ —[glutatyon peroksidaz]→ GSSG + 2H₂O<br>
+    Redüktaz: GSSG + NADPH + H⁺ —[glutatyon redüktaz]→ 2GSH + NADP⁺ (PPY'dan NADPH)
+  </div>
+
+  <div class="exam-alert">
+    ⚠️ SINAV: GSH'ın hem indirgenmiş hem yükseltgenmiş halini çizmeniz istenebilir! Ayrıca 7 görevini bilin.
+  </div>
+</div>
+
+</div>
+
+<!-- PROTEİN SORULARI -->
+<div class="questions-section">
+  <h3>📝 Protein Yapısı — Sorular</h3>
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot" style="background:var(--kolay)"></span> Kolay</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--orta)"></span> Orta</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--zor)"></span> Zor</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--analiz)"></span> Analiz</span>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number kolay">1</span>
+      <div class="q-content">
+        <div class="q-text">Peptit bağının oluşumunu açıklayınız. Neden düzlemsel yapıdadır?</div>
+        <div class="q-meta"><span class="q-tag kolay">Kolay</span><span class="q-tag bloom">Bilgi</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      Peptit bağı, bir amino asidin α-karboksil grubu (–COOH) ile diğerinin α-amino grubu (–NH₂) arasında bir molekül su çıkışıyla oluşan <strong>amid bağıdır</strong> (kondensasyon reaksiyonu). Düzlemsel olmasının nedeni, C–N bağının <strong>kısmi çift bağ karakteri</strong> taşımasıdır (rezonans stabilizasyonu: C=O ↔ C–N arasında elektron delokalizasyonu). Bu nedenle C–N bağı etrafında serbest dönüş kısıtlıdır.
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number kolay">2</span>
+      <div class="q-content">
+        <div class="q-text">Protein yapı düzeylerini (primer–kuaterner) tanımlayarak her birini stabilize eden bağları yazınız.</div>
+        <div class="q-meta"><span class="q-tag kolay">Kolay</span><span class="q-tag bloom">Bilgi</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Primer:</strong> Amino asitlerin lineer dizilişi → Peptit bağları (kovalent)<br>
+      <strong>Sekonder:</strong> Lokal katlanma yapıları (α-heliks, β-tabaka) → Hidrojen bağları (zincir içi/arası)<br>
+      <strong>Tersiyer:</strong> Tek polipeptit zincirinin 3B yapısı → Hidrofobik etkileşimler, iyonik bağlar, H-bağları, disülfit (S-S) bağları, van der Waals<br>
+      <strong>Kuaterner:</strong> Birden fazla alt birimin düzenlemesi → Tersiyer ile aynı kovalent olmayan bağlar + alt birimler arası etkileşimler. Örnek: Hemoglobin (α₂β₂)
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number kolay">3</span>
+      <div class="q-content">
+        <div class="q-text">Glutatyon (GSH) nedir? Yapısını yazınız ve neden "özel bir peptit" olduğunu belirtiniz.</div>
+        <div class="q-meta"><span class="q-tag kolay">Kolay</span><span class="q-tag bloom">Bilgi</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>GSH = γ-glutamil-sisteinil-glisin.</strong> Bir tripeptittir. Özelliği: Normal peptit bağı α-karbondan oluşurken, glutatyonda glutamik asidin <strong>γ-karboksil</strong> grubu üzerinden peptit bağı oluşur. Bu nedenle peptidazlara dirençlidir. Antioksidandır, GSH indirgenmiş (aktif) hali, GSSG yükseltgenmiş (inaktif) halidir.
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number orta">4</span>
+      <div class="q-content">
+        <div class="q-text">Aşağıdaki peptit tripsin ile kesilirse kaç fragment oluşur? Fragmentleri yazınız:<br>
+        H₃N⁺-Gly-Ala-Met-Val-Asp-Arg-Phe-Arg-Arg-Ser-Cys-COO⁻</div>
+        <div class="q-meta"><span class="q-tag orta">Orta</span><span class="q-tag bloom">Uygulama</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      Tripsin: Lys ve <strong>Arg</strong>'nin karboksil tarafından keser.<br>
+      Arg pozisyonları: 6, 8, 9<br><br>
+      <strong>4 fragment oluşur:</strong><br>
+      1) H₃N⁺-Gly-Ala-Met-Val-Asp-Arg (1-6)<br>
+      2) Phe-Arg (7-8)<br>
+      3) Arg (9)<br>
+      4) Ser-Cys-COO⁻ (10-11)
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number orta">5</span>
+      <div class="q-content">
+        <div class="q-text">Glutatyonun 7 görevini sıralayınız.</div>
+        <div class="q-meta"><span class="q-tag orta">Orta</span><span class="q-tag bloom">Kavrama</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>1.</strong> Oksidatif ürünlerin indirgenmesi (ana endojen antioksidan, redoks koruyucu)<br>
+      <strong>2.</strong> Peroksitlere karşı koruma: 2GSH + ROOH → GSSG + ROH + H₂O (glutatyon peroksidaz, Se içerir)<br>
+      <strong>3.</strong> Transhidrojenasyon reaksiyonlarına katılım<br>
+      <strong>4.</strong> Amino asitlerin hücreye girişi — γ-glutamil siklusu (prolin hariç tüm amino asitler)<br>
+      <strong>5.</strong> Radyasyon veya oksidanların oluşturduğu DNA hasarına karşı koruyucu<br>
+      <strong>6.</strong> Hemoglobin demirinin Fe²⁺ (ferro) halde tutulması: 2GSH + MetHb(Fe³⁺) → GSSG + Hb(Fe²⁺)<br>
+      <strong>7.</strong> Yabancı maddelerin (ksenobiyotiklerin) zehirsizleştirilmesi
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number zor">6</span>
+      <div class="q-content">
+        <div class="q-text">Denatürasyon sırasında hangi yapı düzeyleri bozulur, hangisi korunur? Orak hücreli anemide hangi yapı düzeyindeki değişiklik hastalığa neden olur? Açıklayınız.</div>
+        <div class="q-meta"><span class="q-tag zor">Zor</span><span class="q-tag bloom">Analiz</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Denatürasyonda:</strong> Sekonder, tersiyer ve kuaterner yapılar bozulur. <strong>Primer yapı korunur</strong> (peptit bağları kovalenttir, denatürasyon kovalent olmayan bağları etkiler).<br><br>
+      <strong>Orak hücreli anemi:</strong> Bu hastalık ise tam tersine <strong>primer yapıdaki</strong> bir mutasyondan kaynaklanır. β-globin zincirinin 6. pozisyonunda glutamik asit (polar, negatif yüklü) → valin (apolar, hidrofobik) değişimi olur. Bu tek amino asit değişikliği:<br>
+      → Tersiyer yapıyı değiştirir (hidrofobik yama oluşur)<br>
+      → Kuaterner yapıyı etkiler (deoksi-HbS molekülleri birbirine yapışarak polimerize olur)<br>
+      → Eritrositler orak şekli alır → Damar tıkanıklığı, hemoliz<br><br>
+      <strong>Sonuç:</strong> Primer yapıdaki bir nokta mutasyonu tüm üst yapı düzeylerini ardışık olarak etkiler.
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number analiz">7</span>
+      <div class="q-content">
+        <div class="q-text">Prion hastalıklarında proteinin hangi yapı düzeyi değişir? Normal ve anormal formları karşılaştırınız. Bu durum "bir protein diğer proteinleri enfekte edebilir" düşüncesini nasıl destekler?</div>
+        <div class="q-meta"><span class="q-tag analiz">Analiz</span><span class="q-tag bloom">Değerlendirme</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Değişen düzey: Sekonder yapı.</strong><br>
+      <strong>PrPᶜ (normal):</strong> α-heliks ağırlıklı → Hücre zarında bulunur, normal işlev görür<br>
+      <strong>PrPˢᶜ (anormal):</strong> β-tabaka ağırlıklı → Çözünmez, proteazlara dirençli, birikir<br><br>
+      Primer yapı (amino asit dizisi) <strong>aynıdır!</strong> Sadece katlanma biçimi değişir.<br><br>
+      <strong>"Protein infeksiyonu" mekanizması:</strong> PrPˢᶜ, normal PrPᶜ ile temas ettiğinde onu kendi konformasyonuna dönüştürür (şablon etkisi/template-directed misfolding). Bu zincirleme reaksiyon proteinlerin üstel birikimini sağlar. Nükleik asit içermeden bulaşıcı olması, "bir protein başka proteinlerin yapısını değiştirebilir" kavramını destekler. Hastalıklar: CJD, Kuru, BSE (deli dana).
+    </div>
+  </div>
+
+</div>
+</div><!-- sec-protein -->
+
+
+<!-- ==================== BÖLÜM 3: ENZİM İNHİBİSYONU ==================== -->
+<div class="section" id="sec-enzim">
+
+<div class="section-header sh-orange">
+  <h2>⚗️ Enzim İnhibisyonu</h2>
+  <p>Geri dönüşümlü inhibisyon türleri · Lineweaver-Burk · Geri dönüşümsüz · Klinik örnekler</p>
+</div>
+
+<div class="summary-grid">
+
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-3-light);color:var(--accent-3);">1</span> İnhibisyon — Genel Sınıflandırma</h3>
+  <p><strong>İnhibitör:</strong> Enzimlerin aktivitesini azaltan maddelere inhibitör adı verilir.</p>
+  <p style="margin-top:8px;">İnhibitörler ikiye ayrılır:</p>
+  <ul>
+    <li><strong>Reversible (Geri dönüşümlü):</strong> Kompetitif, Nonkompetitif, Unkompetitif</li>
+    <li><strong>Irreversible (Geri dönüşümsüz):</strong> Enzimin aktif merkezine bağlanır ve ürüne dönüşümünü kalıcı olarak engeller. Ör: sinir gazları (organofosfattlar)</li>
+  </ul>
+</div>
+
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-3-light);color:var(--accent-3);">2</span> Kompetitif (Yarışmalı) İnhibisyon</h3>
+  <p><strong>Tanım:</strong> İnhibitörün yapısı substrata benzer. Hem substrat hem inhibitör enzimin <strong>aktif merkezi</strong> ile bağlanmak üzere yarışır. İnhibitör bağlandığında enzimatik reaksiyon engellenir.</p>
+  <div class="formula-box">
+    E + S ⇌ ES → E + P &nbsp;&nbsp;&nbsp;(normal)<br>
+    E + I ⇌ EI &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(kompetitif inhibisyon)<br><br>
+    Kinetik etki:<br>
+    • Km (görünür) ARTAR ↑ (substrata afinite görünürde azalır)<br>
+    • Vmax DEĞİŞMEZ (yeterli substrat ile inhibisyon aşılabilir)
+  </div>
+  <div class="clinical-box">
+    🏥 <strong>Klasik Örnek:</strong> TCA siklusunda Süksinat dehidrojenaz enzimi. Malonik asit (inhibitör) süksinik aside (substrat) yapısal olarak benzer → Aktif merkez için yarışır → Fumarat oluşumu engellenir.
+  </div>
+  <div class="clinical-box">
+    🏥 <strong>Statin ilaçlar:</strong> HMG-CoA'nın yapısal analoğu → HMG-CoA redüktazı kompetitif inhibe eder → Kolesterol sentezi azalır
+  </div>
+</div>
+
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-3-light);color:var(--accent-3);">3</span> Nonkompetitif (Yarışmasız) İnhibisyon</h3>
+  <p><strong>Tanım:</strong> İnhibitör, enzime <strong>veya</strong> enzim-substrat (ES) kompleksine bağlanabilir. Substratın bağlandığı bölge dışında bir bölgeye (allosterik bölge) bağlanır. Substrat ile inhibitör arasında yarışma söz konusu değildir.</p>
+  <div class="formula-box">
+    E + I ⇌ EI &nbsp;&nbsp;&nbsp;ve&nbsp;&nbsp;&nbsp; ES + I ⇌ ESI<br><br>
+    Kinetik etki:<br>
+    • Vmax AZALIR ↓ (fonksiyonel enzim miktarı azalır)<br>
+    • Km DEĞİŞMEZ (substrat bağlanması etkilenmez)
+  </div>
+  <div class="clinical-box">
+    🏥 <strong>Örnek:</strong> Ağır metal iyonları (Pb²⁺, Hg²⁺) → Enzim yapısındaki –SH gruplarına bağlanarak nonkompetitif inhibisyon
+  </div>
+</div>
+
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-3-light);color:var(--accent-3);">4</span> Unkompetitif (Yarı-yarışmalı) İnhibisyon</h3>
+  <p><strong>Tanım:</strong> İnhibitör YALNIZCA enzim-substrat (ES) kompleksine bağlanır. Serbest enzime bağlanamaz.</p>
+  <div class="formula-box">
+    ES + I ⇌ ESI (inaktif)<br><br>
+    Kinetik etki:<br>
+    • Vmax AZALIR ↓<br>
+    • Km (görünür) AZALIR ↓ (her ikisi de azalır!)<br>
+    • Vmax/Km oranı sabit kalır
+  </div>
+</div>
+
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-3-light);color:var(--accent-3);">5</span> Karşılaştırma Tablosu & Lineweaver-Burk</h3>
+  <table class="compare-table">
+    <tr><th>Parametre</th><th>Kompetitif</th><th>Nonkompetitif</th><th>Unkompetitif</th></tr>
+    <tr><td><strong>İnhibitör bağlanır</strong></td><td>Aktif merkez (E)</td><td>Allosterik bölge (E ve ES)</td><td>Sadece ES</td></tr>
+    <tr><td><strong>Substrata benzerlik</strong></td><td>Benzer</td><td>Benzemeyen</td><td>Benzemeyen</td></tr>
+    <tr><td><strong>Km (görünür)</strong></td><td>ARTAR ↑</td><td>Değişmez</td><td>AZALIR ↓</td></tr>
+    <tr><td><strong>Vmax</strong></td><td>Değişmez</td><td>AZALIR ↓</td><td>AZALIR ↓</td></tr>
+    <tr><td><strong>[S] artırırsa</strong></td><td>Aşılabilir ✓</td><td>Aşılamaz ✗</td><td>Aşılamaz ✗</td></tr>
+    <tr><td><strong>L-B grafiği</strong></td><td>y-kesişim aynı, eğim artar</td><td>y-kesişim artar, x-kesişim aynı</td><td>Paralel çizgiler</td></tr>
+  </table>
+
+  <div class="exam-alert">
+    ⚠️ SINAV: İnhibisyon tanımı ve türleri 30 puanlık soru olarak soruldu! Bu tabloyu ezberleyin.
+  </div>
+</div>
+
+<div class="summary-card">
+  <h3><span class="icon" style="background:var(--accent-3-light);color:var(--accent-3);">6</span> Geri Dönüşümsüz İnhibisyon</h3>
+  <p>İnhibitör enzime <strong>kovalent olarak</strong> bağlanır ve enzim kalıcı olarak inaktive olur. Substrat konsantrasyonu artırılarak aşılamaz!</p>
+  <table class="compare-table">
+    <tr><th>İnhibitör</th><th>Hedef Enzim</th><th>Mekanizma</th></tr>
+    <tr><td><strong>Aspirin (Asetilsalisilik asit)</strong></td><td>COX-1/COX-2 (Siklooksijenaz)</td><td>Serin kalıntısını asetilasyon ile bloke eder</td></tr>
+    <tr><td><strong>Organofosfattlar (DFP, sinir gazları)</strong></td><td>Asetilkolinesteraz</td><td>Aktif merkezdeki serin –OH'ına kovalent bağlanır</td></tr>
+    <tr><td><strong>Penisilin</strong></td><td>Transpeptidaz (bakteri)</td><td>Aktif merkeze kovalent bağ → Hücre duvarı sentezi engellenir</td></tr>
+    <tr><td><strong>DIPF</strong></td><td>Serin proteazlar</td><td>Serin kalıntısına kovalent bağlanır</td></tr>
+  </table>
+</div>
+
+</div>
+
+<!-- ENZİM SORULARI -->
+<div class="questions-section">
+  <h3>📝 Enzim İnhibisyonu — Sorular</h3>
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot" style="background:var(--kolay)"></span> Kolay</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--orta)"></span> Orta</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--zor)"></span> Zor</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--analiz)"></span> Analiz</span>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number kolay">1</span>
+      <div class="q-content">
+        <div class="q-text">Enzim inhibisyonunu tanımlayınız. Geri dönüşümlü ve geri dönüşümsüz inhibisyon arasındaki temel farkı belirtiniz.</div>
+        <div class="q-meta"><span class="q-tag kolay">Kolay</span><span class="q-tag bloom">Bilgi</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Enzim inhibisyonu:</strong> Enzim aktivitesinin spesifik moleküller (inhibitörler) tarafından azaltılması veya engellenmesidir.<br><br>
+      <strong>Geri dönüşümlü:</strong> İnhibitör enzime kovalent olmayan bağlarla bağlanır → Diyaliz veya seyreltme ile uzaklaştırılabilir → Enzim aktivitesi geri kazanılır<br>
+      <strong>Geri dönüşümsüz:</strong> İnhibitör enzime kovalent bağla bağlanır → Enzim kalıcı olarak inaktive olur → Aktivite geri kazanılamaz
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number kolay">2</span>
+      <div class="q-content">
+        <div class="q-text">Kompetitif inhibisyonu tanımlayınız ve Km ile Vmax üzerindeki etkisini belirtiniz.</div>
+        <div class="q-meta"><span class="q-tag kolay">Kolay</span><span class="q-tag bloom">Bilgi</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Kompetitif inhibisyon:</strong> İnhibitörün yapısı substrata benzer. Hem substrat hem inhibitör enzimin aktif merkezi ile bağlanmak üzere yarışır.<br><br>
+      <strong>Km görünür → ARTAR ↑</strong> (enzimin substrata görünür afinitesi azalır, çünkü substratın bağlanması için daha yüksek konsantrasyon gerekir)<br>
+      <strong>Vmax → DEĞİŞMEZ</strong> (yeterli substrat eklenerek inhibisyon tamamen aşılabilir)
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number orta">3</span>
+      <div class="q-content">
+        <div class="q-text">Süksinat dehidrojenaz enziminin malonik asit tarafından inhibisyonunu açıklayınız. Bu ne tür bir inhibisyondur? Neden?</div>
+        <div class="q-meta"><span class="q-tag orta">Orta</span><span class="q-tag bloom">Kavrama</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      TCA siklusunda süksinat dehidrojenaz, süksinatı fumarata dönüştürür. <strong>Malonik asit</strong>, süksinik aside yapısal olarak çok benzer (her ikisi de dikarboksilik asit). Bu nedenle malonat enzimin aktif merkezine bağlanarak süksinatla yarışır.<br><br>
+      Bu <strong>kompetitif inhibisyondur</strong> çünkü: 1) İnhibitör substrata yapısal olarak benzer, 2) Aktif merkeze bağlanır, 3) Substrat konsantrasyonu artırılarak aşılabilir, 4) Km artar, Vmax değişmez.
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number orta">4</span>
+      <div class="q-content">
+        <div class="q-text">Kompetitif, nonkompetitif ve unkompetitif inhibisyonun Km ve Vmax üzerindeki etkilerini karşılaştırmalı olarak yazınız.</div>
+        <div class="q-meta"><span class="q-tag orta">Orta</span><span class="q-tag bloom">Kavrama</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Kompetitif:</strong> Km ↑ ARTAR, Vmax değişmez. Substrat artırılırsa aşılabilir.<br>
+      <strong>Nonkompetitif:</strong> Km değişmez, Vmax ↓ AZALIR. Substrat artırılırsa aşılamaz.<br>
+      <strong>Unkompetitif:</strong> Km ↓ AZALIR, Vmax ↓ AZALIR. Her ikisi de orantılı azalır. Substrat artırılırsa aşılamaz.<br><br>
+      <strong>Hatırlama ipucu:</strong> "Kompetitif → Km değişir, Non → Vmax değişir, Un → ikisi de değişir"
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number orta">5</span>
+      <div class="q-content">
+        <div class="q-text">Aspirinin COX enzimi üzerindeki inhibisyon mekanizmasını açıklayınız. Bu ne tür bir inhibisyondur?</div>
+        <div class="q-meta"><span class="q-tag orta">Orta</span><span class="q-tag bloom">Uygulama</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      Aspirin (asetilsalisilik asit), <strong>geri dönüşümsüz inhibitördür</strong>. COX enziminin (siklooksijenaz) aktif merkezindeki <strong>serin kalıntısını asetilleyerek</strong> (kovalent modifikasyon) enzimi kalıcı olarak inaktive eder. Bu nedenle prostaglandin ve tromboksan sentezi engellenir → Anti-enflamatuar, antipiretik, antiplatelet etki gösterir. Trombositlerin COX-1 inhibisyonu geri dönüşümsüz olduğu ve trombositlerde çekirdek bulunmadığı (yeni enzim sentezleyemez) için etki trombositin ömrü boyunca (7-10 gün) sürer.
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number zor">6</span>
+      <div class="q-content">
+        <div class="q-text">Bir Lineweaver-Burk grafiğinde inhibitörlü ve inhibitörsüz doğrular aynı y-ekseni kesişim noktasına sahip ama farklı eğimlere sahip. Bu hangi inhibisyon türüdür? Neden? Diğer türlerin grafiklerini de açıklayınız.</div>
+        <div class="q-meta"><span class="q-tag zor">Zor</span><span class="q-tag bloom">Analiz</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      Bu <strong>kompetitif inhibisyondur</strong>.<br><br>
+      Lineweaver-Burk: 1/V = (Km/Vmax)(1/[S]) + 1/Vmax<br><br>
+      <strong>Kompetitif:</strong> y-kesişim (1/Vmax) aynı kalır (çünkü Vmax değişmez), x-kesişim (-1/Km) sıfıra yaklaşır (Km arttığı için). Eğim artar.<br><br>
+      <strong>Nonkompetitif:</strong> x-kesişim (-1/Km) aynı kalır (Km değişmez), y-kesişim (1/Vmax) artar (Vmax azaldığı için). Doğrular x-ekseninde kesişir.<br><br>
+      <strong>Unkompetitif:</strong> Hem Km hem Vmax aynı oranda azalır → Eğim aynı kalır → İnhibitörlü doğru inhibitörsüze <strong>paralel</strong> olarak yukarı kayar.
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number analiz">7</span>
+      <div class="q-content">
+        <div class="q-text">Bir hastanın organofosforlu insektisit (malation) ile zehirlendiği bildirilmiştir. Bu zehirlenmenin enzimatik mekanizmasını, semptomlarını ve tedavi yaklaşımını açıklayınız.</div>
+        <div class="q-meta"><span class="q-tag analiz">Analiz</span><span class="q-tag bloom">Değerlendirme</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Mekanizma:</strong> Organofosfattlar, asetilkolinesteraz (AChE) enziminin aktif merkezindeki serin kalıntısına <strong>kovalent olarak</strong> bağlanır → Geri dönüşümsüz inhibisyon. Enzim asetilkolini parçalayamaz.<br><br>
+      <strong>Sonuç:</strong> Sinaptik aralıkta asetilkolin birikir → Kolinerjik kriz:<br>
+      → Muskarinik etkiler: Miyozis, salivasyon, bronkospazm, bradikardiyi, kusma, diyare, idrar inkontinansı<br>
+      → Nikotinik etkiler: Kas fasikülasyonları, güçsüzlük, paraliz<br>
+      → SSS: Konfüzyon, nöbet, koma<br><br>
+      <strong>Tedavi:</strong><br>
+      1) <strong>Atropin</strong>: Muskarinik reseptör antagonisti → Asetilkolinin muskarinik etkilerini bloke eder<br>
+      2) <strong>Pralidoksim (2-PAM)</strong>: Fosforillenmiş enzimden fosfat grubunu kopararak AChE'yi reaktive eder (ancak "aging" oluşmadan önce uygulanmalı)<br>
+      3) Dekontaminasyon ve destek tedavi
+    </div>
+  </div>
+
+</div>
+</div><!-- sec-enzim -->
+
+
+<!-- ==================== BÖLÜM 4: KARMA SORULAR ==================== -->
+<div class="section" id="sec-karma">
+
+<div class="section-header sh-blue">
+  <h2>🎯 Karma Sorular — Tüm Konular</h2>
+  <p>Sınav formatında · Konuları birleştiren · Analitik düşünme gerektiren</p>
+</div>
+
+<div class="questions-section">
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot" style="background:var(--kolay)"></span> Kolay</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--orta)"></span> Orta</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--zor)"></span> Zor</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--analiz)"></span> Analiz</span>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number kolay">1</span>
+      <div class="q-content">
+        <div class="q-text">Hormonları kimyasal yapılarına göre sınıflandırınız. Her sınıftan en az iki örnek veriniz.</div>
+        <div class="q-meta"><span class="q-tag kolay">Kolay</span><span class="q-tag bloom">Bilgi</span><span class="q-tag" style="background:#e0f2f1;color:#00695c;">Hormonlar</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>1. Steroid yapılı hormonlar (lipit türevi):</strong><br>
+      a) Cinsiyet hormonları: Östrojen (östron, östradiol), Testosteron, Progesteron<br>
+      b) Sürrenal korteks hormonları: Kortizol (glukokortikoid), Aldosteron (mineralokortikoid)<br><br>
+      <strong>2. Peptit ve protein yapısındaki hormonlar:</strong><br>
+      İnsülin, Glukagon, Gastrin, Sekretin, Oksitosin, Büyüme hormonu, Hipofiz hormonları<br><br>
+      <strong>3. Amino asit türevi hormonlar:</strong><br>
+      Tiroid hormonları (T3, T4), Katekolaminler (Adrenalin, Noradrenalin)<br><br>
+      <strong>4. Yağ asidi türevi hormonlar:</strong><br>
+      Prostaglandinler, Tromboksanlar, Lökotrienler
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number kolay">2</span>
+      <div class="q-content">
+        <div class="q-text">3 adet steroid yapılı hormonu çiziniz ve adlandırınız.</div>
+        <div class="q-meta"><span class="q-tag kolay">Kolay</span><span class="q-tag bloom">Bilgi</span><span class="q-tag" style="background:#e0f2f1;color:#00695c;">Hormonlar</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      Steroid hormonlar, steran (siklopentanoperhidrofenantren) halka sisteminden türer. Kolesterolden sentezlenir.<br><br>
+      <strong>Östradiol (17-β-östradiol):</strong> Östran (18C), 13-metil steran türevi. A halkası aromatiktir. Dişi cinsiyet hormonu.<br>
+      <strong>Testosteron:</strong> Androstan (19C) türevi. 10,13-dimetil steran. Erkek cinsiyet hormonu.<br>
+      <strong>Kortizol (Hidrokortizon):</strong> Pregnon (21C) türevi. Glukokortikoid. 11-β, 17-α, 21 pozisyonlarında –OH grupları taşır.<br><br>
+      <em>Not: Yapıları ders notlarınızdaki çizimlere göre çizmelisiniz — 4 halka sistemi (A, B, C, D) ve fonksiyonel grupların pozisyonları önemli.</em>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number orta">3</span>
+      <div class="q-content">
+        <div class="q-text">Glukoz metabolizmasında rol oynayan hormonları ve bir adet azot içeren hormonu yazınız.</div>
+        <div class="q-meta"><span class="q-tag orta">Orta</span><span class="q-tag bloom">Kavrama</span><span class="q-tag" style="background:#e0f2f1;color:#00695c;">Hormonlar + Metabolizma</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Glukoz metabolizmasını düzenleyen hormonlar:</strong><br>
+      1) <strong>İnsülin</strong> (peptit yapılı, β-hücreleri): Kan glukozunu düşürür → Glikoliz ↑, Glikojen sentezi ↑, Glukoneogenez ↓<br>
+      2) <strong>Glukagon</strong> (peptit yapılı, α-hücreleri): Kan glukozunu yükseltir → Glikojenoliz ↑, Glukoneogenez ↑<br>
+      3) <strong>Adrenalin (Epinefrin)</strong>: Kas ve karaciğerde glikojenoliz ↑<br>
+      4) <strong>Kortizol</strong> (steroid): Glukoneogenez ↑, periferik glukoz kullanımı ↓<br>
+      5) <strong>Büyüme hormonu</strong>: Anti-insülin etki, lipoliz ↑<br><br>
+      <strong>Azot içeren hormon:</strong> Adrenalin (katekolamin) — amino asit türevi (tirozinden sentezlenir), yapısında amino grubu (–NH) taşır.
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number orta">4</span>
+      <div class="q-content">
+        <div class="q-text">Nükleotid nedir? Pürin ve pirimidin bazlarını sıralayınız. 5-C'lu şekerlerini (riboz/deoksiriboz) çiziniz.</div>
+        <div class="q-meta"><span class="q-tag orta">Orta</span><span class="q-tag bloom">Kavrama</span><span class="q-tag" style="background:#e0f2f1;color:#00695c;">Nükleik Asitler</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Nükleotid = Baz + Şeker + Fosfat</strong> (Nükleozid = Baz + Şeker)<br><br>
+      <strong>Pürin bazları (iki halkalı):</strong> Adenin (A), Guanin (G)<br>
+      <strong>Pirimidin bazları (tek halkalı):</strong> Sitozin (C), Timin (T, sadece DNA), Urasil (U, sadece RNA)<br><br>
+      <strong>5-C'lu şekerler:</strong><br>
+      • <strong>Riboz (RNA'da):</strong> 2' pozisyonunda –OH grubu taşır<br>
+      • <strong>Deoksiriboz (DNA'da):</strong> 2' pozisyonunda –H taşır (oksijenin yokluğu = "deoksi")<br><br>
+      <em>Not: Furanoz (5-üyeli halka) formunda çizilir. 1' pozisyonundan baza, 5' pozisyonundan fosfata bağlanır.</em>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number zor">5</span>
+      <div class="q-content">
+        <div class="q-text">Glutatyonun hem protein yapısı (peptit bağı) hem enzim inhibisyonu (antioksidan savunma) hem de ksenobiyotik metabolizması (Faz II) ile olan bağlantısını entegre bir şekilde açıklayınız.</div>
+        <div class="q-meta"><span class="q-tag zor">Zor</span><span class="q-tag bloom">Sentez</span><span class="q-tag" style="background:#fff3e0;color:#e65100;">Konuları Birleştiren</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Glutatyon (GSH)</strong> üç konunun kesişim noktasındadır:<br><br>
+      <strong>1) Protein yapısı bağlantısı:</strong> γ-glutamil-sisteinil-glisin tripeptittir. Özelliği: Normal peptit bağı α-karbondan değil, <strong>γ-karbon</strong>dan oluşur → Bu yapısal fark onu peptidazlara dirençli kılar ve hücrede uzun ömürlü olmasını sağlar.<br><br>
+      <strong>2) Enzim ilişkisi (Antioksidan savunma):</strong><br>
+      • <strong>Glutatyon peroksidaz</strong> (Se içerir): 2GSH + ROOH → GSSG + ROH + H₂O → Peroksitleri detoksifiye eder<br>
+      • <strong>Glutatyon redüktaz:</strong> GSSG + NADPH → 2GSH + NADP⁺ → GSH'ı rejeneree eder (NADPH pentoz fosfat yolundan gelir)<br>
+      • Bu enzimler inhibitörlere karşı hassastır: Ağır metaller (Pb²⁺, Hg²⁺) glutatyon redüktazı nonkompetitif inhibe edebilir → GSH düzeyi düşer → Oksidatif stres artar<br><br>
+      <strong>3) Ksenobiyotik metabolizması (Faz II):</strong><br>
+      GSH + ksenobiyotik → (glutatyon S-transferaz ile) → Merkaptürik asit → İdrarla atılım<br>
+      Parasetamol zehirlenmesinde GSH depoları tükenir → NAPQI birikir → Hepatotoksisite<br><br>
+      <strong>Entegrasyon:</strong> GSH'ın γ-peptit bağı yapısı (protein kimyası) onu stabil tutar; enzimlerle birlikte çalışarak (enzim kinetiği) hem endojen oksidanlara hem eksojen toksinlere (ksenobiyotik metabolizması) karşı hücreyi korur.
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number zor">6</span>
+      <div class="q-content">
+        <div class="q-text">Bir hasta hem statin (kolesterol ilacı) hem de greyfurt suyu tüketiyor. Bu kombinasyonun biyokimyasal temelini enzim inhibisyonu ve ksenobiyotik metabolizması açısından açıklayınız.</div>
+        <div class="q-meta"><span class="q-tag zor">Zor</span><span class="q-tag bloom">Analiz</span><span class="q-tag" style="background:#fff3e0;color:#e65100;">Konuları Birleştiren</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Statin etkisi (Enzim inhibisyonu):</strong> Statinler, HMG-CoA redüktazın <strong>kompetitif inhibitörüdür</strong> (HMG-CoA'ya yapısal benzerlik). Kolesterol sentezinin hız kısıtlayıcı basamağını bloke eder.<br><br>
+      <strong>Greyfurt etkisi (Ksenobiyotik metabolizması):</strong> Greyfurt suyu bağırsakta <strong>CYP3A4</strong> (Faz I enzimi) aktivitesini inhibe eder. Birçok statin (atorvastatin, simvastatin) normalde CYP3A4 tarafından metabolize edilir.<br><br>
+      <strong>Kombinasyonun sonucu:</strong><br>
+      → CYP3A4 inhibe olduğu için statinin Faz I metabolizması azalır<br>
+      → Statin kan düzeyi beklenenden çok yükselir<br>
+      → Kas hücrelerinde aşırı statin birikimi → <strong>Rabdomiyoliz</strong> riski (kas yıkımı)<br><br>
+      Bu örnek, enzim inhibisyonu (kompetitif — statin) ile ksenobiyotik metabolizması (Faz I — CYP3A4 inhibisyonu) kavramlarının klinik pratikte nasıl kesiştiğini gösterir.
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number analiz">7</span>
+      <div class="q-content">
+        <div class="q-text">Kanserli dokularda, diyabette ve tüm toksisite durumlarında glutatyon düzeyinin azaldığı bilinmektedir. Bu durumun (a) oksidatif stres, (b) ilaç metabolizması ve (c) protein yapısı/fonksiyonu üzerindeki etkilerini bütünleşik olarak değerlendiriniz.</div>
+        <div class="q-meta"><span class="q-tag analiz">Analiz</span><span class="q-tag bloom">Değerlendirme</span><span class="q-tag" style="background:#fff3e0;color:#e65100;">Bütünleştirici</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>(a) Oksidatif stres üzerindeki etki:</strong><br>
+      GSH düzeyi düşünce: Glutatyon peroksidaz substratı azalır → H₂O₂ ve lipid peroksitler birikir → Serbest radikaller artar → DNA, lipid ve protein hasarı → Hücre ölümü veya malign transformasyon riskinde artış. Özellikle kanserli dokularda bu kısır döngü hücre proliferasyonunu destekler.<br><br>
+      <strong>(b) İlaç metabolizması üzerindeki etki:</strong><br>
+      GSH depolarının tükenmesi Faz II konjugasyon kapasitesini azaltır → Ksenobiyotiklerin (özellikle elektrofilik metabolitlerin) detoksifikasyonu yetersiz kalır → İlaç toksisitesi artar. Diyabetik hastalarda ilaç dozları dikkatli ayarlanmalıdır. Parasetamol gibi ilaçlarda toksisite eşiği düşer.<br><br>
+      <strong>(c) Protein yapısı/fonksiyonu üzerindeki etki:</strong><br>
+      • Hemoglobindeki Fe²⁺'nin Fe³⁺'e oksitlenmesi (methemoglobin) engellenemez → O₂ taşıma kapasitesi düşer<br>
+      • Protein –SH grupları oksitlenir → Disülfit bağları düzensiz oluşur → Protein katlanması bozulur (tersiyer yapı etkilenir)<br>
+      • Enzim aktif merkezlerindeki sistein kalıntıları oksitlenir → Enzim aktivitesi azalır<br><br>
+      <strong>Bütünleştirme:</strong> GSH azalması, antioksidan savunmanın (enzim kinetiği), detoksifikasyonun (ksenobiyotik) ve protein homeostazının (yapı) eş zamanlı bozulmasına yol açar — bu üç mekanizma birbirini besleyen bir "toksisite sarmalı" oluşturur.
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number analiz">8</span>
+      <div class="q-content">
+        <div class="q-text">Bir enzim zinciri parçalama sorusu: Aşağıdaki peptidin hem tripsin hem kimotripsinle kesildiğinde oluşacak fragmentleri belirleyiniz ve örtüşen fragmentlerden orijinal diziyi çıkarınız.<br>
+        H₃N⁺-Ala-Leu-Tyr-Met-Gly-Arg-Phe-Ala-Lys-Ser-Glu-Asp-COO⁻</div>
+        <div class="q-meta"><span class="q-tag analiz">Analiz</span><span class="q-tag bloom">Sentez</span><span class="q-tag" style="background:#fff3e0;color:#e65100;">Enzim Zinciri</span></div>
+      </div>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <strong>Tripsin ile kesim</strong> (Arg ve Lys'in karboksil tarafından):<br>
+      Arg(6) ve Lys(9) pozisyonlarından keser:<br>
+      T1: H₃N⁺-Ala-Leu-Tyr-Met-Gly-Arg (1-6)<br>
+      T2: Phe-Ala-Lys (7-9)<br>
+      T3: Ser-Glu-Asp-COO⁻ (10-12)<br><br>
+
+      <strong>Kimotripsin ile kesim</strong> (Phe, Trp, Tyr'in karboksil tarafından):<br>
+      Tyr(3) ve Phe(7) pozisyonlarından keser:<br>
+      K1: H₃N⁺-Ala-Leu-Tyr (1-3)<br>
+      K2: Met-Gly-Arg-Phe (4-7)<br>
+      K3: Ala-Lys-Ser-Glu-Asp-COO⁻ (8-12)<br><br>
+
+      <strong>Örtüşme analizi:</strong><br>
+      T1 içindeki K1 ve K2'nin başlangıcı → Sıra: Ala-Leu-Tyr | Met-Gly-Arg<br>
+      K2'nin sonu ve T2'nin başlangıcı örtüşür (…Arg-Phe…) → Bağlantı noktası<br>
+      T2 ve K3 örtüşür (Phe | Ala-Lys…) → Son bölüm doğrulanır<br><br>
+      <strong>Sonuç dizisi:</strong> H₃N⁺-Ala-Leu-Tyr-Met-Gly-Arg-Phe-Ala-Lys-Ser-Glu-Asp-COO⁻ ✓
+    </div>
+  </div>
+
+</div>
+</div><!-- sec-karma -->
+
+</div><!-- main -->
+
+<!-- FOOTER -->
+<div style="text-align:center;padding:30px 20px 50px;color:var(--text-soft);font-size:0.82rem;border-top:1px solid var(--border);">
+  <strong>Dr. Ersin Gündeğer</strong> · Biyokimya II Çalışma Seti · Lehninger Principles of Biochemistry<br>
+  Hazırlayan: Claude AI Öğretim Asistanı · Şubat 2026
+</div>
+
+<script>
+// Section navigation
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  updateProgress();
+}
+
+// Toggle questions
+function toggleQ(card) {
+  card.classList.toggle('open');
+  updateProgress();
+}
+
+// Progress tracker
+function updateProgress() {
+  const total = document.querySelectorAll('.q-card').length;
+  const opened = document.querySelectorAll('.q-card.open').length;
+  const pct = total > 0 ? Math.round((opened / total) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressCount').textContent = opened + ' / ' + total + ' soru incelendi';
+}
+updateProgress();
+</script>
+
+</body>
+</html>
